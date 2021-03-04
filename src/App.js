@@ -5,7 +5,12 @@ import Properties from "./components/Properties";
 import State from "./components/State";
 import RendererCondicional from "./components/RendererCondicional";
 import RendererComponent from "./components/RendererComponent";
-import { EventsES6, EventsES7 } from "./components/Events";
+import { EventsES6, EventsES7, MoreEvents } from "./components/Events";
+import Padre from "./components/ComunicationsComponents";
+import Lifecycle from "./components/Lifecycle";
+import AjaxApis from "./components/AjaxApis";
+import CounterHooks from "./components/CounterHooks";
+import ScrollHooks from "./components/ScrollHooks";
 
 const App = () => {
   return (
@@ -48,6 +53,18 @@ const App = () => {
           <EventsES6 />
           <hr />
           <EventsES7 />
+          <hr />
+          <MoreEvents />
+          <hr />
+          <Padre />
+          <hr />
+          <Lifecycle />
+          <hr />
+          <AjaxApis />
+          <hr />
+          <CounterHooks title="Seguidores" />
+          <hr />
+          <ScrollHooks />
         </section>
       </header>
     </div>
