@@ -11,6 +11,9 @@ import Lifecycle from "./components/Lifecycle";
 import AjaxApis from "./components/AjaxApis";
 import CounterHooks from "./components/CounterHooks";
 import ScrollHooks from "./components/ScrollHooks";
+import AjaxHooks from "./components/AjaxHooks";
+import CustomHooks from "./components/CustomHooks";
+import References from "./components/References";
 
 const App = () => {
   return (
@@ -65,6 +68,12 @@ const App = () => {
           <CounterHooks title="Seguidores" />
           <hr />
           <ScrollHooks />
+          <hr />
+          <AjaxHooks />
+          <hr />
+          <CustomHooks />
+          <hr/>
+          <References/>
         </section>
       </header>
     </div>

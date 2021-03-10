@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 
 class Reloj extends Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
 
   componentWillUnmount = () => {
-    console.log(3, "El componente ha sido eliminado del DOM");
+    // console.log(3, "El componente ha sido eliminado del DOM");
   };
 
   render() {
@@ -17,7 +18,7 @@ class Reloj extends Component {
 class Lifecycle extends Component {
   constructor(props) {
     super(props);
-    console.log(0, "El componente se inicializa, aún no esta en el DOM");
+    // console.log(0, "El componente se inicializa, aún no esta en el DOM");
 
     this.state = {
       date: new Date().toLocaleTimeString(),
@@ -27,11 +28,11 @@ class Lifecycle extends Component {
   }
 
   componentDidMount = () => {
-    console.log(1, "El componente ya se encuentre en el DOM");
+    // console.log(1, "El componente ya se encuentre en el DOM");
   };
 
   componentDidUpdate = (prevProps, prevState) => {
-    console.log(2, "El estado o las props del componente han cambiando");
+    // console.log(2, "El estado o las props del componente han cambiando");
     console.log(prevProps, prevState);
   };
 
@@ -58,10 +59,10 @@ class Lifecycle extends Component {
   };
 
   render() {
-    console.log(
-      4,
-      "El componente se dibuja (o redibuja por algun cambio) en el DOM"
-    );
+    // console.log(
+    //   4,
+    //   "El componente se dibuja (o redibuja por algun cambio) en el DOM"
+    // );
     return (
       <>
         <h2>Ciclo de Vida de los Componentes de Clase</h2>
