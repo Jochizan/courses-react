@@ -14,6 +14,7 @@ import ScrollHooks from "./components/ScrollHooks";
 import AjaxHooks from "./components/AjaxHooks";
 import CustomHooks from "./components/CustomHooks";
 import References from "./components/References";
+import Formulario from "./components/Formulario";
 
 const App = () => {
   return (
@@ -72,8 +73,30 @@ const App = () => {
           <AjaxHooks />
           <hr />
           <CustomHooks />
-          <hr/>
-          <References/>
+          <hr />
+          <References />
+          <hr />
+          <Formulario />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </section>
       </header>
     </div>
