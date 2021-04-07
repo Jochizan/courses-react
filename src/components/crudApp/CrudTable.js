@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import CrudTableRow from './CrudTableRow';
 
 const CrudTable = ({ data, setDataToEdit, deleteData }) => {

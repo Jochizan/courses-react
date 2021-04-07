@@ -1,9 +1,13 @@
-import CrudApp from './components/CrudApp';
+import CrudApp from './components/crudApp/CrudApp';
+import CrudApi from './components/crudApi/CrudApi';
 
 const App = () => {
   return (
     <div>
-      <h2>Ejercicios con React</h2>
+      <h1>Ejercicios con React</h1>
+      <hr />
+      <CrudApi />
+      <hr />
       <CrudApp />
     </div>
   );

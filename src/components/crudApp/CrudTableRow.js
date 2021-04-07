@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const CrudTableRow = ({ data, setDataToEdit, deleteData }) => {
   let { name, constellation, id } = data;
