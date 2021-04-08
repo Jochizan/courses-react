@@ -2,27 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { helpHttp } from '../../helpers/helpHttp';
 import CrudForm from '../crudApp/CrudForm';
 import CrudTable from '../crudApp/CrudTable';
+import Loader from '../loader/Loader';
+import Message from '../Message';
 
 const CrudApi = () => {
-  const [db, setDB] = useState([]);
+  const [db, setDB] = useState(null);
   const [dataToEdit, setDataToEdit] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  let api = helpHttp();
+  // let api = helpHttp();
   let url = 'http://localhost:5000/santos';
 
   useEffect(() => {
-    api
-      .get(url)
-      .then((res) => {
-        // console.log(res);
-        if (!res.err) {
-          setDB(res);
-        } else {
-          setDB(null);
-        }
-      })
-      .catch((err) => console.error(err));
-  }, []);
+    const getData = async () => {
+      setLoading(true);
+      await helpHttp()
+        .get(url)
+        .then((res) => {
+          // console.log(res);
+          if (!res.err) {
+            setDB(res);
+            setError(null);
+          } else {
+            setDB(null);
+            setError(res);
+          }
+        })
+        .catch((err) => console.error(err));
+      setLoading(false);
+    };
+    getData();
+  }, [url]);
 
   const createData = (data) => {
     data.id = Date.now();
@@ -58,11 +69,20 @@ const CrudApi = () => {
           dataToEdit={dataToEdit}
           setDataToEdit={setDataToEdit}
         />
-        <CrudTable
-          data={db}
-          setDataToEdit={setDataToEdit}
-          deleteData={deleteData}
-        />
+        {loading && <Loader />}
+        {error && (
+          <Message
+            msg={`Error ${error.status}: ${error.statusText}`}
+            bgColor='#dc3545'
+          />
+        )}
+        {db && (
+          <CrudTable
+            data={db}
+            setDataToEdit={setDataToEdit}
+            deleteData={deleteData}
+          />
+        )}
       </article>
     </div>
   );
