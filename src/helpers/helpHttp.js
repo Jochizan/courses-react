@@ -1,8 +1,8 @@
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const randomNumber = (min = 0, max = 1) =>
-  Math.floor(Math.random() * (max - min + 1)) + min
+  Math.floor(Math.random() * (max - min + 1)) + min;
 const simulateNetworkLatency = (min = 30, max = 1500) =>
-  delay(randomNumber(min, max))
+  delay(randomNumber(min, max));
 
 const helpHttp = () => {
   const customFetch = async (endpoint, options) => {
@@ -16,16 +16,14 @@ const helpHttp = () => {
 
     options.method = options.method || 'GET';
     options.headers = options.headers
-      ? { ...defaultHeader, ...options.header }
+      ? { ...defaultHeader, ...options.headers }
       : defaultHeader;
 
     options.body = JSON.stringify(options.body) || false;
     if (!options.body) delete options.body;
 
     // console.log(options);
-    setTimeout(() => {
-      controller.abort();
-    }, 3000);
+    setTimeout(() => controller.abort(), 3000);
 
     return fetch(endpoint, options)
       .then((res) =>

@@ -11,7 +11,7 @@ const CrudApi = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // let api = helpHttp();
+  let api = helpHttp();
   let url = 'http://localhost:5000/santos';
 
   useEffect(() => {
@@ -38,12 +38,47 @@ const CrudApi = () => {
   const createData = (data) => {
     data.id = Date.now();
     console.log(data);
-    setDB([...db, data]);
+
+    let options = {
+      body: data,
+      headers: { 'content-type': 'application/json' }
+    };
+
+    api
+      .post(url, options)
+      .then((res) => {
+        console.log(res);
+        if (!res.err) {
+          setDB([...db, res]);
+        } else {
+          setError(res);
+        }
+      })
+      .catch((err) => console.error(err));
   };
 
   const updateData = (data) => {
-    let newData = db.map((el) => (el.id === data.id ? data : el));
-    setDB(newData);
+    let endpoint = `${url}/${data.id}`;
+    console.log(endpoint);
+
+    let options = {
+      body: data,
+      headers: { 'content-type': 'application/json' }
+    };
+
+    api
+      .put(endpoint, options)
+      .then((res) => {
+        if (!res.err) {
+          let newData = db.map((el) => (el.id === data.id ? data : el));
+          setDB(newData);
+        } else {
+          setError(res);
+        }
+      })
+      .catch((err) => console.error(err));
+    // let newData = db.map((el) => (el.id === data.id ? data : el));
+    // setDB(newData);
   };
 
   const deleteData = (id) => {
@@ -52,10 +87,22 @@ const CrudApi = () => {
     );
 
     if (isDeleteData) {
-      let newData = db.filter((el) => el.id !== id);
-      setDB(newData);
-    } else {
-      return;
+      let endpoint = `${url}/${id}`;
+      let options = {
+        headers: { 'content-type': 'application/json' }
+      };
+
+      api
+        .del(endpoint, options)
+        .then((res) => {
+          if (!res.err) {
+            let newData = db.filter((el) => el.id !== id);
+            setDB(newData);
+          } else {
+            setError(res);
+          }
+        })
+        .catch((err) => console.error(err));
     }
   };
 
