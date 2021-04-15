@@ -48,7 +48,9 @@ const SongSearch = () => {
       <h2>Buscador de canciones</h2>
       {loading && <Loader />}
       <SongForm handlerSearch={handlerSearch} />
-      <SongDetails search={search} lyric={lyric} bio={bio} />
+      {search && !loading && (
+        <SongDetails search={search} lyric={lyric} bio={bio} />
+      )}
     </div>
   );
 };
