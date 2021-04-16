@@ -1,5 +1,5 @@
 const Message = ({ msg, bgColor }) => {
-  let styles = {
+  const styles = {
     padding: '1rem',
     marginBottom: '1rem',
     textAlign: 'center',
@@ -11,7 +11,7 @@ const Message = ({ msg, bgColor }) => {
 
   return (
     <div style={styles}>
-      <p>{msg}</p>
+      <p dangerouslySetInnerHTML={{__html: msg}}/>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import './App.css';
 import SongSearch from './components/songSearch/SongSearch';
 
 function App() {
