@@ -1,8 +1,23 @@
 import { useForm } from '../../hooks/useForm';
 
-const initialForm = {};
+const initialForm = {
+  name: '',
+  email: '',
+  subject: '',
+  comments: ''
+};
 
-const validateForm = (form) => {};
+const validateForm = (form) => {
+  let errors = {};
+
+  if (!form.name.trim('')) errors.name = 'El campo nombre es requerido';
+  if (!form.email.trim('')) errors.email = 'El campo email es requerido';
+  if (!form.subject.trim('')) errors.subject = 'El campo subject es requerido';
+  if (!form.comments.trim(''))
+    errors.comments = 'El campo comments es requerido';
+
+  return errors;
+};
 
 const ContacForm = () => {
   const {
@@ -14,6 +29,11 @@ const ContacForm = () => {
     handleSubmit,
     handleChange
   } = useForm(initialForm, validateForm);
+
+  const style = {
+    fontWeight: 'bold',
+    color: '#dc3545'
+  };
 
   return (
     <div>
@@ -28,6 +48,7 @@ const ContacForm = () => {
           placeholder='Escribe tu nombre'
           required
         />
+        {errors.name && <p style={style}>{errors.name}</p>}
         <input
           type='email'
           name='email'
@@ -37,6 +58,7 @@ const ContacForm = () => {
           placeholder='Escribe tu email'
           required
         />
+        {errors.email && <p style={style}>{errors.email}</p>}
         <input
           type='text'
           name='subject'
@@ -46,6 +68,7 @@ const ContacForm = () => {
           placeholder='Asunto a tratar'
           required
         />
+        {errors.subject && <p style={style}>{errors.subject}</p>}
         <textarea
           name='comments'
           cols='50'
@@ -56,6 +79,7 @@ const ContacForm = () => {
           placeholder='Escribe tus comentarios'
           required
         ></textarea>
+        {errors.comments && <p style={style}>{errors.comments}</p>}
         <input type='submit' value='Enviar' />
       </form>
     </div>

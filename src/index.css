@@ -11,7 +11,8 @@ html {
 }
 
 input[type='text'],
-input[type='email'] {
+input[type='email'],
+textarea {
   border: thin solid #dedede;
   border-radius: 0.25rem;
   padding: 0.75rem;
@@ -22,6 +23,11 @@ input[type='email'] {
   font-size: 1rem;
   line-height: 1;
   background-color: transparent;
+}
+
+textarea {
+  font-family: inherit;
+  resize: none;
 }
 
 button,
