@@ -1,0 +1,25 @@
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  border: 14px solid rgba(0, 0, 0, 0.2);
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  border-left-color: #09f;
+
+  animation: spin 2s ease infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
