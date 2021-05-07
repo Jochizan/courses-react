@@ -1,9 +1,6 @@
 import BasicConcepts from './components/BasicConcepts';
-import logo from './logo.svg';
 
-
-
-function App() {
+const App = () => {
   return (
     <div>
       <h1>React Router</h1>
@@ -14,10 +11,10 @@ function App() {
       >
         Documentación
       </a>
-      <hr/>
+      <hr />
       <BasicConcepts />
     </div>
   );
-}
+};
 
 export default App;
