@@ -1,0 +1,12 @@
+a {
+  margin-right: 1rem;
+}
+
+li {
+  margin-bottom: 1rem;
+}
+
+.active {
+  font-weight: bold;
+  color: #61dafb;
+}

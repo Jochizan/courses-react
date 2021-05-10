@@ -5,12 +5,14 @@ import Home from '../screens/Home';
 import Acerca from '../screens/Acerca';
 import Contacto from '../screens/Contacto';
 import Error404 from '../screens/Error404';
+import MenuConceptos from './MenuConceptos';
 
 const BasicConcepts = () => {
   return (
     <div>
       <h2>Conceptos Básicos</h2>
       <Router>
+        <MenuConceptos />
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/acerca' component={Acerca} />

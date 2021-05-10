@@ -1,4 +1,5 @@
 import BasicConcepts from './components/BasicConcepts';
+import './App.css'
 
 const App = () => {
   return (
