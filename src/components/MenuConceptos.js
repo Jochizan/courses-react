@@ -32,6 +32,11 @@ const MenuConceptos = () => {
             Error 404
           </NavLink>
         </li>
+        <li>
+          <span>Parámetros: </span>
+          <Link to='/usuario/jochizan'>jochizan</Link>
+          <Link to='/usuario/kenai'>kEnAi</Link>
+        </li>
       </ol>
     </nav>
   );

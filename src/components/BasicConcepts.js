@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // screens
 import Home from '../screens/Home';
+import User from '../screens/User';
 import Acerca from '../screens/Acerca';
 import Contacto from '../screens/Contacto';
 import Error404 from '../screens/Error404';
@@ -17,6 +18,7 @@ const BasicConcepts = () => {
           <Route exact path='/' component={Home} />
           <Route exact path='/acerca' component={Acerca} />
           <Route exact path='/contacto' component={Contacto} />
+          <Route exact path='/usuario/:username' component={User} />
           <Route component={Error404} />
         </Switch>
       </Router>
