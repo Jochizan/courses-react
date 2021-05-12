@@ -6,6 +6,7 @@ import User from '../screens/User';
 import Acerca from '../screens/Acerca';
 import Contacto from '../screens/Contacto';
 import Error404 from '../screens/Error404';
+import Productos from '../screens/Productos';
 import MenuConceptos from './MenuConceptos';
 
 const BasicConcepts = () => {
@@ -19,6 +20,7 @@ const BasicConcepts = () => {
           <Route exact path='/acerca' component={Acerca} />
           <Route exact path='/contacto' component={Contacto} />
           <Route exact path='/usuario/:username' component={User} />
+          <Route exact path='/productos' component={Productos} />
           <Route component={Error404} />
         </Switch>
       </Router>
