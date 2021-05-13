@@ -8,6 +8,7 @@ import Contacto from '../screens/Contacto';
 import Error404 from '../screens/Error404';
 import Productos from '../screens/Productos';
 import MenuConceptos from './MenuConceptos';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 const BasicConcepts = () => {
   return (
@@ -21,6 +22,12 @@ const BasicConcepts = () => {
           <Route exact path='/contacto' component={Contacto} />
           <Route exact path='/usuario/:username' component={User} />
           <Route exact path='/productos' component={Productos} />
+          <Route exact path='/about'>
+            <Redirect to='/acerca'/>
+          </Route>
+          <Route exact path='/contact'>
+            <Redirect to='/contacto' />
+          </Route>
           <Route component={Error404} />
         </Switch>
       </Router>
