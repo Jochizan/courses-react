@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 
 // screens
 import Home from '../screens/Home';
@@ -8,7 +13,7 @@ import Contacto from '../screens/Contacto';
 import Error404 from '../screens/Error404';
 import Productos from '../screens/Productos';
 import MenuConceptos from './MenuConceptos';
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import ReactTopics from '../screens/ReactTopics';
 
 const BasicConcepts = () => {
   return (
@@ -23,11 +28,12 @@ const BasicConcepts = () => {
           <Route exact path='/usuario/:username' component={User} />
           <Route exact path='/productos' component={Productos} />
           <Route exact path='/about'>
-            <Redirect to='/acerca'/>
+            <Redirect to='/acerca' />
           </Route>
           <Route exact path='/contact'>
             <Redirect to='/contacto' />
           </Route>
+          <Route path='/react' component={ReactTopics} />
           <Route component={Error404} />
         </Switch>
       </Router>
