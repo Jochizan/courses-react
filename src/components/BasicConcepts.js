@@ -8,12 +8,15 @@ import {
 // screens
 import Home from '../screens/Home';
 import User from '../screens/User';
+import Login from '../screens/Login';
 import Acerca from '../screens/Acerca';
 import Contacto from '../screens/Contacto';
 import Error404 from '../screens/Error404';
 import Productos from '../screens/Productos';
+import Dashboard from '../screens/Dashboard';
 import MenuConceptos from './MenuConceptos';
 import ReactTopics from '../screens/ReactTopics';
+import PrivateRoutes from './PrivateRoutes';
 
 const BasicConcepts = () => {
   return (
@@ -34,6 +37,9 @@ const BasicConcepts = () => {
             <Redirect to='/contacto' />
           </Route>
           <Route path='/react' component={ReactTopics} />
+          <Route exact path='/login' component={Login} />
+          {/* <Route exact path='/dashboard' component={Dashboard} /> */}
+          <PrivateRoutes exact path='/dashboard' component={Dashboard} />
           <Route component={Error404} />
         </Switch>
       </Router>
