@@ -1,8 +1,10 @@
 import {
   BrowserRouter as Router,
+  Link,
   Route,
   Switch,
-  Redirect
+  Redirect,
+  HashRouter
 } from 'react-router-dom';
 
 // screens
@@ -21,9 +23,14 @@ import PrivateRoutes from './PrivateRoutes';
 const BasicConcepts = () => {
   return (
     <div>
-      <h2>Conceptos Básicos</h2>
-      <Router>
+      <h2>hash Router</h2>
+      <HashRouter>
         <MenuConceptos />
+        <nav>
+          <Link to='/'>Home</Link>
+          <Link to='/acerca'>Acerca</Link>
+          <Link to='/contacto'>Contacto</Link>
+        </nav>
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/acerca' component={Acerca} />
@@ -42,7 +49,30 @@ const BasicConcepts = () => {
           <PrivateRoutes exact path='/dashboard' component={Dashboard} />
           <Route component={Error404} />
         </Switch>
-      </Router>
+      </HashRouter>
+      <hr />
+      <h2>Conceptos Básicos</h2>
+      {/* <Router>
+        <MenuConceptos />
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/acerca' component={Acerca} />
+          <Route exact path='/contacto' component={Contacto} />
+          <Route exact path='/usuario/:username' component={User} />
+          <Route exact path='/productos' component={Productos} />
+          <Route exact path='/about'>
+            <Redirect to='/acerca' />
+          </Route>
+          <Route exact path='/contact'>
+            <Redirect to='/contacto' />
+          </Route>
+          <Route path='/react' component={ReactTopics} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/dashboard' component={Dashboard} />
+          <PrivateRoutes exact path='/dashboard' component={Dashboard} />
+          <Route component={Error404} />
+        </Switch>
+      </Router> */}
     </div>
   );
   // return (
