@@ -10,6 +10,10 @@ html {
   box-sizing: inherit;
 }
 
+hr {
+  margin: 2rem auto;
+}
+
 input[type='text'] {
   border: thin solid #dedede;
   border-radius: 0.25rem;

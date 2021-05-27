@@ -1,6 +1,9 @@
 import CrudApi from './components/crudApi/CrudApi';
 import SongSearch from './components/songSearch/SongSearch';
 
+// styles
+import './App.css';
+
 const App = () => {
   return (
     <>
@@ -8,13 +11,14 @@ const App = () => {
       <a
         href='https://reactrouter.com/web/guides/quick-start'
         target='_blank'
-        rel='noreferrer'>
+        rel='noreferrer'
+      >
         Documentación
       </a>
       <hr />
       <SongSearch />
       <hr />
-      <CrudApi />
+      {/* <CrudApi /> */}
     </>
   );
 };

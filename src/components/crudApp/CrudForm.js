@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 const initialForm = {
   name: '',
@@ -6,8 +7,14 @@ const initialForm = {
   id: null
 };
 
-const CrudForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
+const CrudForm = ({
+  createData,
+  updateData,
+  dataToEdit,
+  setDataToEdit
+}) => {
   const [form, setForm] = useState(initialForm);
+  const history = useHistory();
 
   useEffect(() => {
     dataToEdit ? setForm(dataToEdit) : setForm(initialForm);
@@ -33,6 +40,7 @@ const CrudForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
   const handleReset = (e) => {
     setForm(initialForm);
     setDataToEdit(null);
+    history.push('/');
   };
 
   return (
