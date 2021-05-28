@@ -6,11 +6,14 @@ import Error404 from '../Error';
 import SongDetails from '../songDetails/SongDetails';
 import SongForm from '../songForm/SongForm';
 
+let mySongInit = JSON.parse(localStorage.getItem('mySongs')) || [];
+
 const SongSearch = () => {
   const [search, setSearch] = useState(null);
   const [lyric, setLyric] = useState(null);
   const [bio, setBio] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [mySongs, setMySongs] = useState(mySongInit);
 
   useEffect(() => {
     if (search === null) return;
@@ -38,12 +41,20 @@ const SongSearch = () => {
     };
 
     fetchData();
-  }, [search]);
 
-  const handlerSearch = (data) => {
+    localStorage.setItem('mySongs', JSON.stringify(mySongs));
+  }, [search, mySongs]);
+
+  const handleSearch = (data) => {
     // console.log(data);
     setSearch(data);
   };
+
+  const handleSaveSong = () => {
+    alert('Salvando canción en favoritos');
+  };
+
+  const handleDeleteSong = (id) => {};
 
   return (
     <div>
@@ -55,8 +66,11 @@ const SongSearch = () => {
         {loading && <Loader />}
         <article className='grid-1-3'>
           <Switch>
-            <Route>
-              <SongForm handlerSearch={handlerSearch} />
+            <Route exact path='/'>
+              <SongForm
+                handleSearch={handleSearch}
+                handleSaveSong={handleSaveSong}
+              />
               <h2>Tabla de canciones</h2>
               {search && !loading && (
                 <SongDetails search={search} lyric={lyric} bio={bio} />

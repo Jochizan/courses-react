@@ -29,7 +29,8 @@ input[type='text'] {
 
 button,
 input[type='submit'],
-input[type='reset'] {
+input[type='reset'],
+input[type='button'] {
   border: thin solid #444;
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
@@ -45,6 +46,13 @@ input[type='reset'] {
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
+}
+
+input[type='button']:disabled {
+  background-color: rgba(239, 239, 239, 0.3);
+  border-color: rgba(118, 118, 118, 0.3);
+  color: rgba(18, 18, 18, 0.3);
+  cursor: default;
 }
 
 form {
