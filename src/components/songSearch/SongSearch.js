@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
-import { helpHttp } from '../../helpers/helpHttp';
-import { HashRouter, Switch, Route, Link } from 'react-router-dom';
-import Loader from '../loader/Loader';
-import Error404 from '../Error';
-import SongDetails from '../songDetails/SongDetails';
-import SongForm from '../songForm/SongForm';
+import { useEffect, useState } from "react";
+import { helpHttp } from "../../helpers/helpHttp";
+import { HashRouter, Switch, Route, Link } from "react-router-dom";
+import Loader from "../loader/Loader";
+import Error404 from "../Error";
+import SongDetails from "../songDetails/SongDetails";
+import SongForm from "../songForm/SongForm";
+import SongTable from "../songTable/SongTable";
 
-let mySongInit = JSON.parse(localStorage.getItem('mySongs')) || [];
+let mySongInit = JSON.parse(localStorage.getItem("mySongs")) || [];
 
 const SongSearch = () => {
   const [search, setSearch] = useState(null);
@@ -30,7 +31,7 @@ const SongSearch = () => {
 
       const [artistRes, songRes] = await Promise.all([
         helpHttp().get(artistUrl),
-        helpHttp().get(songUrl)
+        helpHttp().get(songUrl),
       ]);
 
       console.log(artistRes, songRes);
@@ -42,7 +43,7 @@ const SongSearch = () => {
 
     fetchData();
 
-    localStorage.setItem('mySongs', JSON.stringify(mySongs));
+    localStorage.setItem("mySongs", JSON.stringify(mySongs));
   }, [search, mySongs]);
 
   const handleSearch = (data) => {
@@ -51,32 +52,38 @@ const SongSearch = () => {
   };
 
   const handleSaveSong = () => {
-    alert('Salvando canción en favoritos');
+    alert("Salvando canción en favoritos");
   };
 
-  const handleDeleteSong = (id) => {};
+  const handleDeleteSong = (id) => {
+    alert(`Eliminando canción con el id: ${id}`);
+  };
 
   return (
     <div>
-      <HashRouter basename='songs'>
+      <HashRouter basename="songs">
         <header>
           <h2>Song Search</h2>
-          <Link to='/'>Home</Link>
+          <Link to="/">Home</Link>
         </header>
         {loading && <Loader />}
-        <article className='grid-1-3'>
+        <article className="grid-1-2">
           <Switch>
-            <Route exact path='/'>
+            <Route exact path="/">
               <SongForm
                 handleSearch={handleSearch}
                 handleSaveSong={handleSaveSong}
+              />
+              <SongTable
+                mySongs={mySongs}
+                handleDeleteSong={handleDeleteSong}
               />
               <h2>Tabla de canciones</h2>
               {search && !loading && (
                 <SongDetails search={search} lyric={lyric} bio={bio} />
               )}
             </Route>
-            <Route exact path='/songs/:id'>
+            <Route exact path="/songs/:id">
               <h2>Página de canción</h2>
             </Route>
             <Route children={<Error404 />}></Route>
