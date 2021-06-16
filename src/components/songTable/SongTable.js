@@ -1,4 +1,4 @@
-import SongTableRow from "../songTableRow/SongTableRow";
+import SongTableRow from '../songTableRow/SongTableRow';
 
 const SongTable = ({ mySongs, handleDeleteSong }) => {
   return (
@@ -7,7 +7,7 @@ const SongTable = ({ mySongs, handleDeleteSong }) => {
         <table>
           <thead>
             <tr>
-              <th colSpan="2">Artista</th>
+              <th colSpan='2'>Artista</th>
               <th>Canción</th>
               <th>Acciones</th>
             </tr>
@@ -24,7 +24,7 @@ const SongTable = ({ mySongs, handleDeleteSong }) => {
               ))
             ) : (
               <tr>
-                <td colSpan="4">Sin canciones</td>
+                <td colSpan='4'>Sin canciones</td>
               </tr>
             )}
           </tbody>

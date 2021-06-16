@@ -18,7 +18,7 @@ const App = () => {
       <hr />
       <SongSearch />
       <hr />
-      {/* <CrudApi /> */}
+      <CrudApi />
     </>
   );
 };
