@@ -56,6 +56,22 @@ const App = () => {
           Úsalo siempre que se pase una función como parámetro de un efecto.
         </li>
       </ul>
+      <h3>
+        <a
+          href='https://es.reactjs.org/docs/hooks-reference.html#usememo'
+          target='_blank'
+          rel='noreferrer'
+        >
+          useMemo
+        </a>
+      </h3>
+      <ul>
+        <li>
+          Memoriza un valor calculado, es decir, el resultado de una función.
+        </li>
+        <li>Genera propiedades computadas.</li>
+        <li>Úsalo en procesos pesados.</li>
+      </ul>
       <hr />
       <Contador />
     </div>
