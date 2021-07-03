@@ -1,5 +1,7 @@
 import './App.css';
+
 import MyPage from './components/MyPage';
+import MyPageContext from './components/MyPageContext';
 
 const App = () => {
   return (
@@ -12,6 +14,8 @@ const App = () => {
       >
         Documentación
       </a>
+      <hr />
+      <MyPageContext />
       <hr />
       <MyPage />
     </div>
