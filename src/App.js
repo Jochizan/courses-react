@@ -1,5 +1,6 @@
 import CrudApi from './components/crudApi/CrudApi';
 import SongSearch from './components/songSearch/SongSearch';
+import { CrudProvider } from './context/CrudContext';
 
 // styles
 import './App.css';
@@ -18,7 +19,9 @@ const App = () => {
       <hr />
       <SongSearch />
       <hr />
-      <CrudApi />
+      <CrudProvider>
+        <CrudApi />
+      </CrudProvider>
     </>
   );
 };

@@ -6,7 +6,7 @@ const SongPage = ({ mySongs }) => {
   let { id } = useParams();
   // console.log(id, mySongs, mySongs[id]);
 
-  let currentSong = mySongs[id];
+  let currentSong = mySongs[id] || 0;
   let { search, lyric, bio } = currentSong;
 
   return (

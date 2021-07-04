@@ -1,6 +1,9 @@
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import CrudContext from '../../context/CrudContext';
 
-const CrudTableRow = ({ data, setDataToEdit, deleteData }) => {
+const CrudTableRow = ({ data }) => {
+  const { setDataToEdit, deleteData } = useContext(CrudContext);
   let { name, constellation, id } = data;
   let history = useHistory();
 

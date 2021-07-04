@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import CrudContext from '../../context/CrudContext';
 
 const initialForm = {
   name: '',
@@ -7,12 +8,8 @@ const initialForm = {
   id: null
 };
 
-const CrudForm = ({
-  createData,
-  updateData,
-  dataToEdit,
-  setDataToEdit
-}) => {
+const CrudForm = () => {
+  const { createData, updateData, dataToEdit, setDataToEdit } = useContext(CrudContext);
   const [form, setForm] = useState(initialForm);
   const history = useHistory();
 
