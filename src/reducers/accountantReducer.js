@@ -1,4 +1,4 @@
-import { TYPES } from '../actions/contadorActions';
+import { TYPES } from '../actions/accountantActions';
 
 export const accountantInitialState = { contador: 0 };
 
