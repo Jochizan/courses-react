@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { HashRouter, NavLink, Route, Switch } from 'react-router-dom';
-import { helpHttp } from '../../helpers/helpHttp';
-import CrudForm from '../crudApp/CrudForm';
-import CrudTable from '../crudApp/CrudTable';
-import Loader from '../loader/Loader';
-import Error404 from '../Error';
-import Message from '../Message';
+import React, { useEffect, useState, useReducer } from "react";
+import { HashRouter, NavLink, Route, Switch } from "react-router-dom";
+import { helpHttp } from "../../helpers/helpHttp";
+import CrudForm from "../crudApp/CrudForm";
+import CrudTable from "../crudApp/CrudTable";
+import Loader from "../loader/Loader";
+import Error404 from "../Error";
+import Message from "../Message";
+import { crudInitialState, crudReducer } from "../../reducers/crudReducer";
+import { TYPES } from "../../actions/crudActions";
 
 const CrudApi = () => {
-  const [db, setDB] = useState(null);
+  // const [db, setDB] = useState(null);
+  const [state, dispatch] = useReducer(crudReducer, crudInitialState);
+  const { db } = state;
   const [dataToEdit, setDataToEdit] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   let api = helpHttp();
-  let url = 'http://localhost:5001/santos';
+  let url = "http://localhost:5001/santos";
 
   useEffect(() => {
     const getData = async () => {
@@ -24,10 +28,12 @@ const CrudApi = () => {
         .then((res) => {
           // console.log(res);
           if (!res.err) {
-            setDB(res);
+            // setDB(res);
+            dispatch({ type: TYPES.READ_ALL_DATA, payload: res });
             setError(null);
           } else {
-            setDB(null);
+            // setDB(null);
+            dispatch({ type: TYPES.NO_DATA });
             setError(res);
           }
         })
@@ -43,7 +49,7 @@ const CrudApi = () => {
 
     let options = {
       body: data,
-      headers: { 'content-type': 'application/json' }
+      headers: { "content-type": "application/json" },
     };
 
     api
@@ -51,7 +57,8 @@ const CrudApi = () => {
       .then((res) => {
         console.log(res);
         if (!res.err) {
-          setDB([...db, res]);
+          // setDB([...db, res]);
+          dispatch({ type: TYPES.CREATE_DATA, payload: res });
         } else {
           setError(res);
         }
@@ -65,15 +72,15 @@ const CrudApi = () => {
 
     let options = {
       body: data,
-      headers: { 'content-type': 'application/json' }
+      headers: { "content-type": "application/json" },
     };
 
     api
       .put(endpoint, options)
       .then((res) => {
         if (!res.err) {
-          let newData = db.map((el) => (el.id === data.id ? data : el));
-          setDB(newData);
+          dispatch({ type: TYPES.UPDATE_DATA, payload: data });
+          // setDB(newData);
         } else {
           setError(res);
         }
@@ -91,15 +98,16 @@ const CrudApi = () => {
     if (isDeleteData) {
       let endpoint = `${url}/${id}`;
       let options = {
-        headers: { 'content-type': 'application/json' }
+        headers: { "content-type": "application/json" },
       };
 
       api
         .del(endpoint, options)
         .then((res) => {
           if (!res.err) {
-            let newData = db.filter((el) => el.id !== id);
-            setDB(newData);
+            // let newData = db.filter((el) => el.id !== id);
+            // setDB(newData);
+            dispatch({ type: TYPES.DELETE_DATA, payload: id });
           } else {
             setError(res);
           }
@@ -110,20 +118,20 @@ const CrudApi = () => {
 
   return (
     <div>
-      <HashRouter basename='/santos'>
+      <HashRouter basename="/santos">
         <header>
           <h2>CRUD API con Rutas</h2>
           <nav>
-            <NavLink to='/' activeClassName='active'>
+            <NavLink to="/" activeClassName="active">
               Santos
             </NavLink>
-            <NavLink to='/agregar' activeClassName='active'>
-              Santos
+            <NavLink to="/agregar" activeClassName="active">
+              Agregar
             </NavLink>
           </nav>
         </header>
         <Switch>
-          <Route exact path='/'>
+          <Route exact path="/">
             <h2>Home de Santos</h2>
             {db && (
               <CrudTable
@@ -133,7 +141,7 @@ const CrudApi = () => {
               />
             )}
           </Route>
-          <Route exact path='/agregar'>
+          <Route exact path="/agregar">
             <h2>Agregar Santos</h2>
             <CrudForm
               createData={createData}
@@ -142,7 +150,7 @@ const CrudApi = () => {
               setDataToEdit={setDataToEdit}
             />
           </Route>
-          <Route exact path='/edit/:id'>
+          <Route exact path="/edit/:id">
             <h2>Editar Santo</h2>
             <CrudForm
               createData={createData}
@@ -154,12 +162,12 @@ const CrudApi = () => {
           <Route children={<Error404 />} />
         </Switch>
       </HashRouter>
-      <article className='grid-1-2'>
+      <article className="grid-1-2">
         {loading && <Loader />}
         {error && (
           <Message
             msg={`Error ${error.status}: ${error.statusText}`}
-            bgColor='#dc3545'
+            bgColor="#dc3545"
           />
         )}
       </article>
