@@ -1,13 +1,21 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
+import Eye from '../General/Eye';
+import { Link } from 'react-router-dom';
 
 const Table = ({ usuarios }) => {
-  const ponerFilas = () => usuarios.map((usuario, idx) => (
-    <tr key={idx}>
-      <td>{usuario.name}</td>
-      <td>{usuario.email}</td>
-      <td>{usuario.website}</td>
-    </tr>
-  ));
+  const ponerFilas = () =>
+    usuarios.map((usuario, idx) => (
+      <tr key={usuario.id}>
+        <td>{usuario.name}</td>
+        <td>{usuario.email}</td>
+        <td>{usuario.website}</td>
+        <td>
+          <Link to={`/publicaciones/${idx}`}>
+            <Eye />
+          </Link>
+        </td>
+      </tr>
+    ));
 
   return (
     <table className='tabla'>
@@ -25,6 +33,6 @@ const Table = ({ usuarios }) => {
 
 const mapStateProps = (reducers) => {
   return reducers.usuariosReducers;
-}
+};
 
 export default connect(mapStateProps)(Table);
