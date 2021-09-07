@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ERROR, GET_USERS, LOADING } from '../types/usuarios.types';
+import { ERROR, GET_USERS, LOADING } from 'src/types/usuarios.types';
 
 export const getUsers = () => async (dispatch) => {
   dispatch({
