@@ -32,7 +32,7 @@ const Table = ({ usuarios }) => {
 };
 
 const mapStateProps = (reducers) => {
-  return reducers.usuariosReducers;
+  return reducers.userReducer;
 };
 
 export default connect(mapStateProps)(Table);

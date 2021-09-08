@@ -6,9 +6,11 @@ import Loader from '../General/Loader';
 import Failed from '../General/Falied';
 import * as userActions from '../../actions/usuarios.actions';
 
-const Usuarios = ({ getUsers, loading, error }) => {
+const Usuarios = ({ usuarios, getUsers, loading, error }) => {
   useEffect(() => {
-    getUsers();
+    if (!usuarios) {
+      getUsers();
+    }
   }, []);
 
   const ponerContenido = () => {
@@ -32,7 +34,7 @@ const Usuarios = ({ getUsers, loading, error }) => {
 };
 
 const mapUsersProps = (reducers) => {
-  return reducers.usuariosReducers;
+  return reducers.userReducer;
 };
 
 export default connect(mapUsersProps, userActions)(Usuarios);

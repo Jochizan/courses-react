@@ -4,24 +4,28 @@ import { connect } from 'react-redux';
 import * as userActions from '../../actions/usuarios.actions';
 import * as publicationActions from '../../actions/publication.actions';
 
-const Publicaciones = ({
-  match: {
-    params: { key }
-  },
-  usuarios,
-  publicaciones,
-  getUsers,
-  getPublications,
-  userReducer,
-  publicationReducer
-}) => {
-  useEffect(() => {
-    if (!usuarios || !usuarios.length) {
-      getUsers();
-    }
-  }, []);
+const Publicaciones = (props) => {
+  const {
+    match: {
+      params: { key }
+    },
+    getUsers,
+    getByUser,
+    publicationReducer: { publicaciones },
+    userReducer: { usuarios }
+  } = props;
 
-  console.log(publicationReducer, userReducer);
+  const loadData = async () => {
+    if (!usuarios || !usuarios.length) {
+      await getUsers();
+    }
+    await getByUser(key);
+  };
+  console.log(usuarios, publicaciones);
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <div>

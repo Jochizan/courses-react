@@ -1,4 +1,4 @@
-import { ERROR, GET_PUBLICATIONS, LOADING } from '../types/publicaciones.types';
+import { ERROR, LOADING, GET_BY_USER } from '../types/publicaciones.types';
 
 const INITIAL_STATE = {
   publicaciones: [],
@@ -8,11 +8,12 @@ const INITIAL_STATE = {
 
 const publicationReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case GET_PUBLICATIONS:
+    case GET_BY_USER:
       return {
         ...state,
         publicaciones: action.payload,
-        loading: false
+        loading: false,
+        error: {}
       };
 
     case LOADING:

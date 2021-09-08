@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_USERS:
-      return { ...state, usuarios: action.payload, loading: false };
+      return { ...state, usuarios: action.payload, loading: false, error: {} };
 
     case LOADING:
       return { ...state, loading: true };
