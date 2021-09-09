@@ -8,7 +8,7 @@ import * as userActions from '../../actions/usuarios.actions';
 
 const Usuarios = ({ usuarios, getUsers, loading, error }) => {
   useEffect(() => {
-    if (!usuarios) {
+    if (!usuarios.length) {
       getUsers();
     }
   }, []);

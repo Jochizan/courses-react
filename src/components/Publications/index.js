@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import Loader from '../General/Loader';
 
 import * as userActions from '../../actions/usuarios.actions';
 import * as publicationActions from '../../actions/publication.actions';
+import userReducer from 'src/reducers/usuarios.reducers';
+import Failed from '../General/Falied';
 
 const Publicaciones = (props) => {
   const {
@@ -12,25 +15,41 @@ const Publicaciones = (props) => {
     getUsers,
     getByUser,
     publicationReducer: { publicaciones },
-    userReducer: { usuarios }
+    userReducer: { usuarios, loading, error }
   } = props;
 
   const loadData = async () => {
-    if (!usuarios || !usuarios.length) {
-      await getUsers();
+    if (!usuarios.length) {
+      return await getUsers();
     }
-    await getByUser(key);
+    if (!('publication_key' in usuarios[key])) {
+      await getByUser(key);
+    }
   };
+
   console.log(usuarios, publicaciones);
+
+  const loadUser = () => {
+    if (Object.keys(error).length) {
+      return <Failed message={error.message} />;
+    }
+
+    if (!usuarios.length || loading) {
+      return <Loader />;
+    }
+
+    const name = usuarios[key]?.name;
+
+    return <h1>Publicaciones de {name}</h1>;
+  };
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [usuarios]);
 
   return (
     <div>
-      <h1>Publicaciones de</h1>
-      {key}
+      {loadUser()}
     </div>
   );
 };
