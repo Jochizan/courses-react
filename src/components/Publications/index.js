@@ -4,7 +4,7 @@ import Loader from '../General/Loader';
 
 import * as userActions from '../../actions/usuarios.actions';
 import * as publicationActions from '../../actions/publication.actions';
-import userReducer from 'src/reducers/usuarios.reducers';
+//import userReducer from 'src/reducers/usuarios.reducers';
 import Failed from '../General/Falied';
 
 const Publicaciones = (props) => {
@@ -14,7 +14,8 @@ const Publicaciones = (props) => {
     },
     getUsers,
     getByUser,
-    publicationReducer: { publicaciones },
+    openAndClose,
+    publicationReducer: { publicaciones, loading: pLoading, error: pError },
     userReducer: { usuarios, loading, error }
   } = props;
 
@@ -27,7 +28,19 @@ const Publicaciones = (props) => {
     }
   };
 
-  console.log(usuarios, publicaciones);
+  const loadPublications = () => {
+    if (Object.keys(pError).length) {
+      return <Failed message={pError.message} />;
+    }
+
+    if (pLoading || !publicaciones.length) {
+      return <Loader />;
+    }
+
+    const { publication_key } = usuarios[key];
+
+    return showInfo(publication_key);
+  };
 
   const loadUser = () => {
     if (Object.keys(error).length) {
@@ -43,6 +56,22 @@ const Publicaciones = (props) => {
     return <h1>Publicaciones de {name}</h1>;
   };
 
+  const showInfo = (key) => {
+    return publicaciones[key].map((publication, idx) => (
+      <div
+        className='pub_titulo'
+        key={publication.id}
+        onClick={() => openAndClose(key, idx)}
+      >
+        <h2>
+          {publication.id}. {publication.title}
+        </h2>
+        <h3>{publication.body}</h3>
+        {publication.open ? 'abierto' : 'cerrado'}
+      </div>
+    ));
+  };
+
   useEffect(() => {
     loadData();
   }, [usuarios]);
@@ -50,6 +79,7 @@ const Publicaciones = (props) => {
   return (
     <div>
       {loadUser()}
+      {loadPublications()}
     </div>
   );
 };

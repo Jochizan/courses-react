@@ -1,20 +1,28 @@
 import axios from 'axios';
-import { LOADING, GET_BY_USER, ERROR } from 'src/types/publicaciones.types';
+import { LOADING, UPDATE, ERROR } from 'src/types/publicaciones.types';
 import { GET_USERS } from 'src/types/usuarios.types';
 
 export const getByUser = (key) => async (dispatch, getState) => {
   dispatch({
     type: LOADING
   });
+
+  const { usuarios } = getState().userReducer;
+  const { publicaciones } = getState().publicationReducer;
+  const user_id = usuarios[key].id;
+
   try {
-    const { usuarios } = getState().userReducer;
-    const { publicaciones } = getState().publicationReducer;
-    const user_id = usuarios[key].id;
     const res = await axios.get(
       `https://jsonplaceholder.typicode.com/posts?userId=${user_id}`
     );
 
-    const publications_update = [...publicaciones, res.data];
+    const newData = res.data.map((publication) => ({
+      ...publication,
+      comments: [],
+      open: false
+    }));
+
+    const publications_update = [...publicaciones, newData];
 
     const publication_key = publications_update.length - 1;
     const users_update = [...usuarios];
@@ -29,13 +37,32 @@ export const getByUser = (key) => async (dispatch, getState) => {
     });
 
     dispatch({
-      type: GET_BY_USER,
+      type: UPDATE,
       payload: publications_update
     });
   } catch (err) {
     dispatch({
       type: ERROR,
-      error: { message: 'Error user', err }
+      payload: { message: 'Error Fatal', err }
     });
   }
+};
+
+export const openAndClose = (key, idx) => (dispatch, getState) => {
+  const { publicaciones } = getState().publicationReducer;
+  const select = publicaciones[key][idx];
+
+  const update = {
+    ...select,
+    open: !select.open
+  };
+
+  const publications_update = [...publicaciones];
+  publications_update[key] = [...publicaciones[key]];
+  publications_update[key][idx] = update;
+
+  dispatch({
+    type: UPDATE,
+    payload: publications_update
+  });
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import Usuarios from './components/Usuarios';
