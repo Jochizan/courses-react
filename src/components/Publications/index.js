@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+
 import Loader from '../General/Loader';
+import Failed from '../General/Falied';
+import Comments from './Comments';
 
 import * as userActions from '../../actions/usuarios.actions';
 import * as publicationActions from '../../actions/publication.actions';
-//import userReducer from 'src/reducers/usuarios.reducers';
-import Failed from '../General/Falied';
 
 const Publicaciones = (props) => {
   const {
@@ -14,6 +15,7 @@ const Publicaciones = (props) => {
     },
     getUsers,
     getByUser,
+    getComments,
     openAndClose,
     publicationReducer: { publicaciones, loading: pLoading, error: pError },
     userReducer: { usuarios, loading, error }
@@ -61,15 +63,22 @@ const Publicaciones = (props) => {
       <div
         className='pub_titulo'
         key={publication.id}
-        onClick={() => openAndClose(key, idx)}
+        onClick={() => showComments(key, idx, publication.comments)}
       >
         <h2>
           {publication.id}. {publication.title}
         </h2>
         <h3>{publication.body}</h3>
-        {publication.open ? 'abierto' : 'cerrado'}
+        {publication.open && <Comments comments={publication.comments} />}
       </div>
     ));
+  };
+
+  const showComments = (key, idx, comments) => {
+    openAndClose(key, idx);
+    if (!comments.length) {
+      getComments(key, idx);
+    }
   };
 
   useEffect(() => {
@@ -79,7 +88,7 @@ const Publicaciones = (props) => {
   return (
     <div>
       {loadUser()}
-      {loadPublications()}
+      {usuarios.length && !loading ? loadPublications() : ''}
     </div>
   );
 };

@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { LOADING, UPDATE, ERROR } from 'src/types/publicaciones.types';
+import {
+  LOADING,
+  UPDATE,
+  ERROR,
+  COM_L,
+  COM_R,
+  COM_U
+} from 'src/types/publicaciones.types';
 import { GET_USERS } from 'src/types/usuarios.types';
 
 export const getByUser = (key) => async (dispatch, getState) => {
@@ -65,4 +72,38 @@ export const openAndClose = (key, idx) => (dispatch, getState) => {
     type: UPDATE,
     payload: publications_update
   });
+};
+
+export const getComments = (key, idx) => async (dispatch, getState) => {
+  dispatch({
+    type: COM_L
+  });
+
+  const { publicaciones } = getState().publicationReducer;
+  const select = publicaciones[key][idx];
+
+  try {
+    const res = await axios.get(
+      `https://jsonplaceholder.typicode.com/comments?postId=${select.id}`
+    );
+
+    const update = {
+      ...select,
+      comments: res.data
+    };
+
+    const publications_update = [...publicaciones];
+    publications_update[key] = [...publicaciones[key]];
+    publications_update[key][idx] = update;
+
+    dispatch({
+      type: COM_U,
+      payload: publications_update
+    });
+  } catch (err) {
+    dispatch({
+      type: COM_R,
+      payload: { message: 'Error get comments', err }
+    });
+  }
 };

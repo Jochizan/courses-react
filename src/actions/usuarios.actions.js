@@ -7,7 +7,7 @@ export const getUsers = () => async (dispatch) => {
   });
 
   try {
-    const res = await axios.get('https://jsonplaceholder.typicode.com/users');
+    const res = await axios.get('htps://jsonplaceholder.typicode.com/users');
 
     dispatch({
       type: GET_USERS,
