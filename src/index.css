@@ -49,3 +49,14 @@ li {
 .red {
 	color: red;
 }
+
+.pub_titulo {
+  border-top: 2px solid #000;
+  cursor: pointer;
+}
+
+.contenedor_tareas {
+  font-size: 20px;
+  margin-left: 50px;
+  margin-bottom: 70px;
+}
