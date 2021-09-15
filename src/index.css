@@ -60,3 +60,7 @@ li {
   margin-left: 50px;
   margin-bottom: 70px;
 }
+
+a {
+	text-decoration: none;
+}

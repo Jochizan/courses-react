@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import * as taskActions from '../../actions/tareas.actions';
 import Failed from '../General/Falied';
 import Loader from '../General/Loader';
@@ -41,7 +43,9 @@ const Tareas = ({ getTasks, tareas, loading, error }) => {
 
   return (
     <div>
-      <h1>Tareas Saludar</h1>
+      <Link to='/tareas/guardar'>
+        <button>Agregar</button>
+      </Link>
       {showContent()}
     </div>
   );
