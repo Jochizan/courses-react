@@ -13,19 +13,33 @@ const INITIAL_STATE = {
   tarea: {
     user_id: '',
     title: ''
-  }
+  },
+  back: false
 };
 
 const taskReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_TASKS:
-      return { ...state, tareas: action.payload, loading: false, error: {} };
+      return {
+        ...state,
+        tareas: action.payload,
+        back: false,
+        loading: false,
+        error: {}
+      };
 
     case SET_TASK:
       return { ...state, tarea: action.payload };
 
     case SAVE_TASK:
-      return { ...state, tareas: {}, loading: false, error: {} };
+      return {
+        ...state,
+        tareas: {},
+        back: true,
+        loading: false,
+        error: {},
+        tarea: { user_id: '', title: '' }
+      };
 
     case LOADING:
       return { ...state, loading: true };

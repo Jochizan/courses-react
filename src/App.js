@@ -13,6 +13,7 @@ const App = () => (
       <Route exact path='/tareas' component={Tareas} />
       <Route exact path='/publicaciones/:key' component={Publicaciones} />
       <Route exact path='/tareas/guardar' component={Guardar} />
+      <Route exact path='/tareas/guardar/:usr_id/:task_id' component={Guardar} />
     </div>
   </Router>
 );

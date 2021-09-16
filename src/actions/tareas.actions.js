@@ -51,24 +51,24 @@ export const handleValues = (e) => (dispatch, getState) => {
   });
 };
 
+export const handleTask = (task) => (dispatch) => {
+  const editTask = { user_id: task.userId, title: task.title };
+  dispatch({
+    type: SET_TASK,
+    payload: editTask
+  });
+};
+
 export const createTask = (newTask) => async (dispatch) => {
   dispatch({
     type: LOADING
   });
 
   try {
-    const res = await axios.post(
-      'https://jsonplaceholder.typicode/todos',
-      newTask
-    );
+    await axios.post('https://jsonplaceholder.typicode/todos', newTask);
 
     dispatch({
       type: SAVE_TASK
-    });
-
-    dispatch({
-      type: SET_TASK,
-      payload: { user_id: '', title: '' }
     });
   } catch (err) {
     dispatch({
@@ -76,4 +76,8 @@ export const createTask = (newTask) => async (dispatch) => {
       payload: { err, message: err.message }
     });
   }
+};
+
+export const editTask = (newTask) => async (dispatch) => {
+  console.log(newTask);
 };

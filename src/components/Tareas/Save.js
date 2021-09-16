@@ -1,7 +1,32 @@
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import * as taskActions from '../../actions/tareas.actions';
+import Failed from '../General/Falied';
+import Loader from '../General/Loader';
 
-const Save = ({ tarea: { user_id, title }, handleValues, createTask }) => {
+const Save = ({
+  match: {
+    params: { usr_id, task_id }
+  },
+  tarea: { user_id, title },
+  tareas,
+  error,
+  back,
+  loading,
+  handleTask,
+  handleValues,
+  createTask,
+  editTask
+}) => {
+  useEffect(() => {
+    if (usr_id && task_id) {
+      const task = tareas[usr_id][task_id];
+      console.log(task);
+      handleTask(task);
+    }
+  }, []);
+
   const handleChange = (e) => {
     handleValues(e);
   };
@@ -13,13 +38,33 @@ const Save = ({ tarea: { user_id, title }, handleValues, createTask }) => {
       completed: false
     };
 
-    createTask(newTask);
+    if (usr_id && task_id) {
+      const task = tareas[usr_id][task_id];
+      const edit_task = {
+        ...newTask,
+        completed: task.completed,
+        id: task.id
+      };
+
+      editTask(edit_task);
+    } else {
+      createTask(newTask);
+    }
   };
 
-  console.log(user_id, title);
+  const handleShow = () => {
+    if (Object.keys(error).length) {
+      return <Failed message={error.message} />;
+    }
+
+    if (loading) {
+      return <Loader />;
+    }
+  };
 
   return (
     <div>
+      {back ? <Redirect to='/tareas' /> : null}
       <h1>Guardar Tarea</h1>
       Usuario id:
       <input
@@ -34,7 +79,11 @@ const Save = ({ tarea: { user_id, title }, handleValues, createTask }) => {
       <input type='text' name='title' onChange={handleChange} value={title} />
       <br />
       <br />
-      <button onClick={saveTask}>Guardar</button>
+      <button onClick={saveTask} disabled={!user_id || !title}>
+        Guardar
+      </button>
+      <br />
+      {handleShow()}
     </div>
   );
 };

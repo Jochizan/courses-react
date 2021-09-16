@@ -8,7 +8,9 @@ import Loader from '../General/Loader';
 
 const Tareas = ({ getTasks, tareas, loading, error }) => {
   useEffect(() => {
-    getTasks();
+    if (!Object.keys(tareas).length) {
+      getTasks();
+    }
   }, []);
 
   const showTask = (user_id) => {
@@ -20,6 +22,12 @@ const Tareas = ({ getTasks, tareas, loading, error }) => {
       <div key={task_id}>
         <input type='checkbox' defaultChecked={byUser[task_id].completed} />
         {byUser[task_id].title}
+        <Link to={`/tareas/guardar/${user_id}/${task_id}`}>
+          <button className='m-left'>Editar</button>
+        </Link>
+        <Link to={`/tareas/borrar`}>
+          <button className='m-left'>Eliminar</button>{' '}
+        </Link>
       </div>
     ));
   };
