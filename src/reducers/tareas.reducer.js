@@ -3,7 +3,8 @@ import {
   GET_TASKS,
   LOADING,
   SAVE_TASK,
-  SET_TASK
+  SET_TASK,
+  UPDATE
 } from '../types/tareas.types';
 
 const INITIAL_STATE = {
@@ -46,6 +47,9 @@ const taskReducer = (state = INITIAL_STATE, action) => {
 
     case ERROR:
       return { ...state, error: action.payload, loading: false };
+
+    case UPDATE:
+      return { ...state, tareas: action.payload };
 
     default:
       return state;

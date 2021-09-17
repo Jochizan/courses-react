@@ -6,12 +6,21 @@ import * as taskActions from '../../actions/tareas.actions';
 import Failed from '../General/Falied';
 import Loader from '../General/Loader';
 
-const Tareas = ({ getTasks, tareas, loading, error }) => {
+const Tareas = ({
+  getTasks,
+  deleteTask,
+  changeCheck,
+  tareas,
+  loading,
+  error
+}) => {
   useEffect(() => {
     if (!Object.keys(tareas).length) {
       getTasks();
     }
-  }, []);
+  }, [tareas]);
+
+  console.log(tareas);
 
   const showTask = (user_id) => {
     const byUser = {
@@ -20,14 +29,18 @@ const Tareas = ({ getTasks, tareas, loading, error }) => {
 
     return Object.keys(byUser).map((task_id) => (
       <div key={task_id}>
-        <input type='checkbox' defaultChecked={byUser[task_id].completed} />
+        <input
+          type='checkbox'
+          defaultChecked={byUser[task_id].completed}
+          onChange={() => changeCheck(user_id, task_id)}
+        />
         {byUser[task_id].title}
         <Link to={`/tareas/guardar/${user_id}/${task_id}`}>
           <button className='m-left'>Editar</button>
         </Link>
-        <Link to={`/tareas/borrar`}>
-          <button className='m-left'>Eliminar</button>{' '}
-        </Link>
+        <button className='m-left' onClick={() => deleteTask(task_id)}>
+          Eliminar
+        </button>
       </div>
     ));
   };

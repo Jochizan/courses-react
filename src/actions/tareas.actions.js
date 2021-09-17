@@ -3,6 +3,8 @@ import {
   GET_TASKS,
   SET_TASK,
   LOADING,
+  DELETE,
+  UPDATE,
   ERROR,
   SAVE_TASK
 } from '../types/tareas.types';
@@ -79,5 +81,69 @@ export const createTask = (newTask) => async (dispatch) => {
 };
 
 export const editTask = (newTask) => async (dispatch) => {
-  console.log(newTask);
+  dispatch({
+    type: LOADING
+  });
+
+  try {
+    const res = await axios.put(
+      `https://jsonplaceholder.typicode/todos/${newTask.id}`,
+      newTask
+    );
+
+    dispatch({
+      type: SAVE_TASK
+    });
+  } catch (err) {
+    dispatch({
+      type: ERROR,
+      payload: { err, message: err.message }
+    });
+  }
+};
+
+export const changeCheck = (user_id, task_id) => (dispatch, getState) => {
+  const { tareas } = getState().taskReducer;
+  const select = tareas[user_id][task_id];
+
+  const updated = {
+    ...tareas
+  };
+
+  updated[user_id] = {
+    ...tareas[user_id]
+  };
+
+  updated[user_id][task_id] = {
+    ...tareas[user_id][task_id],
+    completed: !select.completed
+  };
+
+  dispatch({
+    type: UPDATE,
+    payload: updated
+  });
+};
+
+export const deleteTask = (task_id) => async (dispatch) => {
+  dispatch({
+    type: LOADING
+  });
+
+  try {
+    const res = await axios.delete(
+      `https://jsonplaceholder.typicode/todos/${task_id}`
+    );
+
+    console.log(res);
+    dispatch({
+      type: GET_TASKS,
+      payload: {}
+    });
+  } catch (err) {
+    dispatch({
+      type: ERROR,
+      payload: { err, message: err.message }
+    });
+  }
 };
