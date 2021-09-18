@@ -6,6 +6,7 @@ import {
   DELETE,
   UPDATE,
   ERROR,
+  CLEAN,
   SAVE_TASK
 } from '../types/tareas.types';
 
@@ -86,7 +87,7 @@ export const editTask = (newTask) => async (dispatch) => {
   });
 
   try {
-    const res = await axios.put(
+    await axios.put(
       `https://jsonplaceholder.typicode/todos/${newTask.id}`,
       newTask
     );
@@ -131,13 +132,10 @@ export const deleteTask = (task_id) => async (dispatch) => {
   });
 
   try {
-    const res = await axios.delete(
-      `https://jsonplaceholder.typicode/todos/${task_id}`
-    );
+    await axios.delete(`https://jsonplaceholder.typicode/todos/${task_id}`);
 
-    console.log(res);
     dispatch({
-      type: GET_TASKS,
+      type: DELETE,
       payload: {}
     });
   } catch (err) {
@@ -146,4 +144,10 @@ export const deleteTask = (task_id) => async (dispatch) => {
       payload: { err, message: err.message }
     });
   }
+};
+
+export const cleanForm = () => (dispatch) => {
+  dispatch({
+    type: CLEAN
+  });
 };

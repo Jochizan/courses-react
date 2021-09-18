@@ -14,6 +14,7 @@ const Save = ({
   error,
   back,
   loading,
+  cleanForm,
   handleTask,
   handleValues,
   createTask,
@@ -22,8 +23,9 @@ const Save = ({
   useEffect(() => {
     if (usr_id && task_id) {
       const task = tareas[usr_id][task_id];
-      console.log(task);
       handleTask(task);
+    } else {
+      cleanForm();
     }
   }, []);
 

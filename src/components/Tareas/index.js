@@ -15,7 +15,7 @@ const Tareas = ({
   error
 }) => {
   useEffect(() => {
-    if (!Object.keys(tareas).length) {
+    if (!Object.keys(tareas).length && !loading) {
       getTasks();
     }
   }, [tareas]);

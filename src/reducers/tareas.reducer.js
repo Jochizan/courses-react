@@ -4,7 +4,9 @@ import {
   LOADING,
   SAVE_TASK,
   SET_TASK,
-  UPDATE
+  UPDATE,
+  CLEAN,
+  DELETE
 } from '../types/tareas.types';
 
 const INITIAL_STATE = {
@@ -50,6 +52,9 @@ const taskReducer = (state = INITIAL_STATE, action) => {
 
     case UPDATE:
       return { ...state, tareas: action.payload };
+
+    case CLEAN:
+      return { ...state, tarea: { user_id: '', title: '' } };
 
     default:
       return state;

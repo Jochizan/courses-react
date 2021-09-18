@@ -5,3 +5,4 @@ export const LOADING = 'TASKS_LOADING';
 export const ERROR = 'TASKS_ERROR';
 export const UPDATE = 'TASKS_UPDATE';
 export const DELETE = 'TASKS_DELETE';
+export const CLEAN = 'TASKS_CLEAN';
